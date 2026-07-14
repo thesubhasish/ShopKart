@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  flyway:
+    enabled: false   # tests use Hibernate's create-drop instead of migrations
+
+jwt:
+  secret: "test-only-secret-key-not-for-production-use-must-be-long-enough"
+  expiration-ms: 3600000
