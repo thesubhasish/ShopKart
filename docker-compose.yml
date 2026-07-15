@@ -1,21 +1,22 @@
 version: '3.8'
 
 services:
-  # ---------- PostgreSQL (shared instance, separate DBs per service) ----------
-  postgres:
-    image: postgres:16-alpine
-    container_name: shopkart-postgres
+  # ---------- MySQL (shared instance, separate DBs per service) ----------
+  mysql:
+    image: mysql:8.4
+    container_name: shopkart-mysql
     environment:
-      POSTGRES_USER: shopkart
-      POSTGRES_PASSWORD: shopkart
-      POSTGRES_DB: shopkart
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_USER: shopkart
+      MYSQL_PASSWORD: shopkart
+      MYSQL_DATABASE: shopkart
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
       - ./infra/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U shopkart"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "shopkart", "-pshopkart"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -63,4 +64,4 @@ services:
       - "6379:6379"
 
 volumes:
-  postgres_data:
+  mysql_data:
