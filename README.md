@@ -44,7 +44,7 @@ Event-driven e-commerce microservices platform built with Java 21 and Spring Boo
 
 - [x] Day 1 — Project scaffold, Docker Compose infra, parent POM
 - [x] Day 2 — User Service (auth/JWT)
-- [ ] Day 3 — Product Service (catalog)
+- [x] Day 3 — Product Service (catalog)
 - [ ] Day 4 — Order Service (REST flow, no Kafka yet)
 - [ ] Day 5 — Kafka producer in Order Service
 - [ ] Day 6 — Inventory Service (Kafka consumer)
