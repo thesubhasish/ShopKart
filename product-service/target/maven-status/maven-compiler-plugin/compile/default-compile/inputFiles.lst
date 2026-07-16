@@ -1,0 +1,17 @@
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\controller\CategoryController.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\controller\ProductController.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\dto\CategoryResponse.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\dto\ProductRequest.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\dto\ProductResponse.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\entity\Category.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\entity\Product.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\exception\DuplicateSkuException.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\exception\ErrorResponse.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\exception\GlobalExceptionHandler.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\exception\ResourceNotFoundException.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\ProductServiceApplication.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\repository\CategoryRepository.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\repository\ProductRepository.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\repository\ProductSpecifications.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\service\CategoryService.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\product-service\src\main\java\com\shopkart\product\service\ProductService.java
