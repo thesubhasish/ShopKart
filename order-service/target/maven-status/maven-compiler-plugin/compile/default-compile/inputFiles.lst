@@ -1,4 +1,5 @@
 C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\client\ProductServiceClient.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\config\KafkaTopicConfig.java
 C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\config\RestClientConfig.java
 C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\controller\OrderController.java
 C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\dto\CreateOrderRequest.java
@@ -9,6 +10,8 @@ C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\
 C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\entity\Order.java
 C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\entity\OrderItem.java
 C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\entity\OrderStatus.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\event\OrderEventPublisher.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\event\OrderPlacedEvent.java
 C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\exception\DownstreamServiceException.java
 C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\exception\ErrorResponse.java
 C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\order-service\src\main\java\com\shopkart\order\exception\GlobalExceptionHandler.java

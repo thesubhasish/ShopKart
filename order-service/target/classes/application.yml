@@ -25,6 +25,20 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
 
+  kafka:
+    bootstrap-servers: localhost:29092   # host-facing listener from docker-compose (PLAINTEXT_HOST)
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all              # wait for all in-sync replicas - safest option (local cluster has only 1 broker, but this is the production-correct setting)
+      properties:
+        enable.idempotence: true   # prevents duplicate events on producer retries
+
+shopkart:
+  kafka:
+    topics:
+      order-placed: order.placed.events
+
 # Where Order Service reaches Product Service to validate items and fetch prices.
 # Hardcoded URL for now - this is exactly the kind of hop-to-hop call a service
 # registry (Eureka) or gateway would normally abstract away. That's a later-day concern.

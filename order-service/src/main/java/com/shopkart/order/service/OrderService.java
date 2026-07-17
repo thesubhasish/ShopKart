@@ -8,14 +8,19 @@ import com.shopkart.order.dto.ProductInfo;
 import com.shopkart.order.entity.Order;
 import com.shopkart.order.entity.OrderItem;
 import com.shopkart.order.entity.OrderStatus;
+import com.shopkart.order.event.OrderEventPublisher;
+import com.shopkart.order.event.OrderPlacedEvent;
 import com.shopkart.order.exception.OrderNotFoundException;
 import com.shopkart.order.exception.ProductUnavailableException;
 import com.shopkart.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -24,6 +29,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final ProductServiceClient productServiceClient;
+    private final OrderEventPublisher orderEventPublisher;
 
     @Transactional
     public OrderResponse placeOrder(CreateOrderRequest request) {
@@ -61,7 +67,32 @@ public class OrderService {
         order.setTotalAmount(total);
 
         Order saved = orderRepository.save(order);
+
+        // Registered to fire only AFTER the transaction commits - if anything rolls back
+        // the order save, this callback never runs, so we never publish an event for an
+        // order that doesn't actually exist in the DB.
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                orderEventPublisher.publishOrderPlaced(toEvent(saved));
+            }
+        });
+
         return OrderResponse.from(saved);
+    }
+
+    private OrderPlacedEvent toEvent(Order order) {
+        List<OrderPlacedEvent.OrderedItem> items = order.getItems().stream()
+                .map(item -> new OrderPlacedEvent.OrderedItem(item.getProductId(), item.getQuantity()))
+                .toList();
+
+        return new OrderPlacedEvent(
+                order.getId(),
+                order.getUserId(),
+                items,
+                order.getTotalAmount(),
+                Instant.now()
+        );
     }
 
     public OrderResponse getById(Long id) {
