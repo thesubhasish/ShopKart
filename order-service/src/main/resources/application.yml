@@ -27,6 +27,7 @@ spring:
 
   kafka:
     bootstrap-servers: localhost:29092   # host-facing listener from docker-compose (PLAINTEXT_HOST)
+
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -34,10 +35,44 @@ spring:
       properties:
         enable.idempotence: true   # prevents duplicate events on producer retries
 
+    consumer:
+      group-id: order-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.shopkart.order.event"
+        spring.json.use.type.headers: false
+        spring.json.value.default.type: com.shopkart.order.event.StockUpdatedEvent
+
 shopkart:
   kafka:
     topics:
       order-placed: order.placed.events
+      stock-updated: stock.updated.events
+
+# Resilience4j circuit breaker guarding the call to product-service. If product-service
+# is down or slow, we stop hammering it after a run of failures and fail fast instead -
+# this protects order-service's own threads from piling up waiting on a dead dependency.
+resilience4j:
+  circuitbreaker:
+    instances:
+      productService:
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10          # look at the last 10 calls
+        minimum-number-of-calls: 5       # need at least 5 calls before the breaker can trip
+        failure-rate-threshold: 50       # trip if >= 50% of those calls failed
+        wait-duration-in-open-state: 10s # stay OPEN (fail fast) for 10s before testing again
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+        ignore-exceptions:
+          - com.shopkart.order.exception.ProductNotFoundException
+          - com.shopkart.order.exception.ProductUnavailableException
+  retry:
+    instances:
+      productService:
+        max-attempts: 3
+        wait-duration: 500ms
 
 # Where Order Service reaches Product Service to validate items and fetch prices.
 # Hardcoded URL for now - this is exactly the kind of hop-to-hop call a service
@@ -48,3 +83,15 @@ product-service:
 logging:
   level:
     com.shopkart.order: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,circuitbreakers
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true

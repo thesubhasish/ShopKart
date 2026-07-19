@@ -14,6 +14,7 @@ import com.shopkart.order.exception.OrderNotFoundException;
 import com.shopkart.order.exception.ProductUnavailableException;
 import com.shopkart.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronization;
@@ -25,6 +26,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -105,5 +107,41 @@ public class OrderService {
         return orderRepository.findByUserId(userId).stream()
                 .map(OrderResponse::from)
                 .toList();
+    }
+
+    /**
+     * Called by StockEventListener when inventory-service reports back on an order.
+     * This is the second half of the choreography-based Saga: order-service published
+     * OrderPlacedEvent not knowing the outcome, and only finds out here.
+     */
+    @Transactional
+    public void applyStockResult(Long orderId, boolean stockReserved, String reason) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+
+        if (order == null) {
+            // Shouldn't normally happen - would mean inventory-service processed an
+            // order that doesn't exist in our own DB. Logging instead of throwing since
+            // this runs inside a Kafka listener, not an HTTP request with a caller to respond to.
+            log.warn("Received stock result for unknown order {}", orderId);
+            return;
+        }
+
+        if (order.getStatus() != OrderStatus.PENDING) {
+            // Already processed (e.g. Kafka redelivered the message after a rebalance).
+            // Applying it again would be a no-op at best, an incorrect status flip at worst.
+            log.info("Order {} already in status {}, ignoring duplicate stock result",
+                    orderId, order.getStatus());
+            return;
+        }
+
+        if (stockReserved) {
+            order.setStatus(OrderStatus.CONFIRMED);
+            log.info("Order {} confirmed - stock reserved successfully", orderId);
+        } else {
+            order.setStatus(OrderStatus.CANCELLED);
+            log.info("Order {} cancelled - {}", orderId, reason);
+        }
+
+        orderRepository.save(order);
     }
 }
