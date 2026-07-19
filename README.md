@@ -47,8 +47,8 @@ Event-driven e-commerce microservices platform built with Java 21 and Spring Boo
 - [x] Day 3 — Product Service (catalog)
 - [x] Day 4 — Order Service (REST flow, no Kafka yet)
 - [x] Day 5 — Kafka producer in Order Service
-- [ ] Day 6 — Inventory Service (Kafka consumer)
-- [ ] Day 7 — Close the loop + Resilience4j
+- [x] Day 6 — Inventory Service (Kafka consumer)
+- [x] Day 7 — Close the loop + Resilience4j
 - [ ] Day 8 — API Gateway (optional)
 - [ ] Day 9 — Dockerize all services
 - [ ] Day 10 — Polish, README, demo
