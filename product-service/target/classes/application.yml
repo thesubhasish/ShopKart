@@ -28,3 +28,9 @@ spring:
 logging:
   level:
     com.shopkart.product: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

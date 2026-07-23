@@ -34,3 +34,9 @@ logging:
   level:
     com.shopkart.user: DEBUG
     org.springframework.security: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
