@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  flyway:
+    enabled: false   # tests use Hibernate's create-drop instead of migrations
+
+  kafka:
+    bootstrap-servers: ${spring.embedded.kafka.brokers}
+    consumer:
+      auto-offset-reset: earliest
+      properties:
+        spring.json.trusted.packages: "com.shopkart.inventory.event"
+        spring.json.use.type.headers: false
+        spring.json.value.default.type: com.shopkart.inventory.event.OrderPlacedEvent
+
+shopkart:
+  kafka:
+    topics:
+      order-placed: order.placed.events
+      stock-updated: stock.updated.events

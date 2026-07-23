@@ -1,0 +1,6 @@
+com\shopkart\inventory\config\KafkaErrorHandlerConfig.class
+com\shopkart\inventory\config\KafkaTopicConfig.class
+com\shopkart\inventory\event\OrderPlacedEvent$OrderedItem.class
+com\shopkart\inventory\event\OrderPlacedEvent.class
+com\shopkart\inventory\InventoryServiceApplication.class
+com\shopkart\inventory\entity\InventoryItem.class

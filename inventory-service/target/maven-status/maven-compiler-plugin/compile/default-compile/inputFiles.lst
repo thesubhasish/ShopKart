@@ -1,0 +1,10 @@
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\inventory-service\src\main\java\com\shopkart\inventory\config\KafkaErrorHandlerConfig.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\inventory-service\src\main\java\com\shopkart\inventory\config\KafkaTopicConfig.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\inventory-service\src\main\java\com\shopkart\inventory\entity\InventoryItem.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\inventory-service\src\main\java\com\shopkart\inventory\event\OrderPlacedEvent.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\inventory-service\src\main\java\com\shopkart\inventory\event\StockEventPublisher.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\inventory-service\src\main\java\com\shopkart\inventory\event\StockUpdatedEvent.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\inventory-service\src\main\java\com\shopkart\inventory\InventoryServiceApplication.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\inventory-service\src\main\java\com\shopkart\inventory\listener\OrderEventListener.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\inventory-service\src\main\java\com\shopkart\inventory\repository\InventoryRepository.java
+C:\Users\creat\Downloads\shopkart-day1-scaffold\shopkart\inventory-service\src\main\java\com\shopkart\inventory\service\InventoryService.java

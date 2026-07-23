@@ -1,0 +1,8 @@
+CREATE TABLE inventory_items (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    product_id BIGINT NOT NULL UNIQUE,
+    available_quantity INT NOT NULL DEFAULT 0,
+    version BIGINT NOT NULL DEFAULT 0,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_inventory_product (product_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
