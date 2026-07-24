@@ -52,3 +52,4 @@ Event-driven e-commerce microservices platform built with Java 21 and Spring Boo
 - [x] Day 8 — API Gateway (optional)
 - [x] Day 9 — Dockerize all services
 - [x] Day 10 — Polish, README, demo
+- [x] Day 11 - Fixing some Issues
